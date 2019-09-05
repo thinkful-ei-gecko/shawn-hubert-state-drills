@@ -1,5 +1,5 @@
 import React from "react";
-import renderer from "react-test-renderer";
+
 
 class Bomb extends React.Component {
   state = {
