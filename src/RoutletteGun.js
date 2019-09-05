@@ -1,6 +1,7 @@
 import React from "react";
 
 class RoutletteGun extends React.Component {
+  // constructor(props) {}
   static defaultProps = {
     bulletInChamber: 8
   };
@@ -11,13 +12,12 @@ class RoutletteGun extends React.Component {
     text: ''
   };
 
-
    handleButtonClick = (e) => {
     this.timeout = setTimeout(() => twoSecondDelay(), 2000);
     const twoSecondDelay = () => {
       this.setState({ 
-        chamber: 8/*(Math.ceil(Math.random() * 8))*/,
-        spinningTheChamber: true
+        spinningTheChamber: false,
+        chamber: (Math.ceil(Math.random() * 8)),
       });
     };
   }
@@ -26,33 +26,28 @@ class RoutletteGun extends React.Component {
     clearTimeout(this.timeout);
   }
 
-
-//   triggerPulled() {
-//     this.setState({ spinningTheChamber: true });
-//     text = 'spinning chamber, pulling trigger...';
-//   }
-
   render() {
     let text;
-    if(this.state.spinningTheChamber === true) {
+    if(this.state.spinningTheChamber === true){
       text = 'spinning chamber, pulling trigger...'
-    }
-    if (this.state.spinningTheChamber === this.state.chamber){
+    }else if(this.props.bulletInChamber === this.state.chamber){
       text = 'BANG!!!!'
-    }  
-    if (this.state.spinningTheChamber !== this.state.chamber){
-      text = 'you\'re safe!'
-    } else {
-      text = '' 
+    }else if(this.state.spinningTheChamber === false && this.props.bulletInChamber !== this.state.chamber && this.state.chamber !== null){
+      text = 'you\'re safe!' 
+    }else if(this.state.spinningTheChamber === false){
+      text = ''
     }
 
     return (
         <div>
         <p>
-      {text}
+          {text}
         </p>
-        <button onClick={()=> this.setState({spinningTheChamber: true})
-          //this.setState({ spinningTheChamber: true });
+        <button onClick={()=> {
+            this.setState({spinningTheChamber: true});
+            this.handleButtonClick(); 
+            console.log(this.state.chamber);
+        }
         }>
             Pull trigger
             </button>
