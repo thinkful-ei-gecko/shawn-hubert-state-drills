@@ -4,13 +4,16 @@ import './App.css';
 import HelloWorld from './HelloWorld.js';
 import Bomb from './Bomb.js';
 import RoutletteGun from './RoutletteGun.js';
+import Accordion from './Accordion';
+import Sections from './Sections';
 
-function App() {
+function App(props) {
   return (
    <main className='App'>
      {/* <HelloWorld/> */}
      {/* <Bomb/> */}
-     <RoutletteGun/>
+     {/* <RoutletteGun/> */}
+     {this.props.sections}
    </main>
   );
 }

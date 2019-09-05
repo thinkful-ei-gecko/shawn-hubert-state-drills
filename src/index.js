@@ -3,8 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import sections from './Sections';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+
+ReactDOM.render(<App sections = {Sections}/>, document.getElementById('root'));
 
 
 serviceWorker.unregister();
