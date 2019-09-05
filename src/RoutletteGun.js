@@ -1,6 +1,5 @@
 import React from "react";
 
-
 class RoutletteGun extends React.Component {
   static defaultProps = {
     bulletInChamber: 8
@@ -8,20 +7,23 @@ class RoutletteGun extends React.Component {
 
   state = {
     chamber: null,
-    spinningTheChamber: false
+    spinningTheChamber: false,
+    text: ''
   };
 
 
-   componentDidMount() {
+   handleButtonClick = (e) => {
     this.timeout = setTimeout(() => twoSecondDelay(), 2000);
     const twoSecondDelay = () => {
-        this.setState({ chamber: (Math.ceil(Math.random() * 8))});
-        this.setState({ spinningTheChamber: false });
+      this.setState({ 
+        chamber: 8/*(Math.ceil(Math.random() * 8))*/,
+        spinningTheChamber: true
+      });
     };
   }
 
   componentWillUnmount() {
-    clearInterval(this.interval);
+    clearTimeout(this.timeout);
   }
 
 
@@ -33,19 +35,25 @@ class RoutletteGun extends React.Component {
   render() {
     let text;
     if(this.state.spinningTheChamber === true) {
-        text = 'spinning chamber, pulling trigger...'
+      text = 'spinning chamber, pulling trigger...'
     }
-    else {
-         text = ''
+    if (this.state.spinningTheChamber === this.state.chamber){
+      text = 'BANG!!!!'
+    }  
+    if (this.state.spinningTheChamber !== this.state.chamber){
+      text = 'you\'re safe!'
+    } else {
+      text = '' 
     }
+
     return (
         <div>
         <p>
       {text}
         </p>
-        <button onClick={()=> {
-            this.setState({ spinningTheChamber: true });
-        }}>
+        <button onClick={()=> this.setState({spinningTheChamber: true})
+          //this.setState({ spinningTheChamber: true });
+        }>
             Pull trigger
             </button>
      </div>
